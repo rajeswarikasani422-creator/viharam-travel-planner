@@ -7,7 +7,9 @@ trip = {
     "total_budget": 50000,
     "num_days": 5,
     "num_people": 2,
-    "destination_tier": "mid"
+    "destination_tier": "mid",
+    "destination": "Goa",
+    "interests": ["beaches", "nightlife"]
 }
 
 result = run_coordinator(trip)
