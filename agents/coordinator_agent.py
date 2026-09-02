@@ -1,4 +1,6 @@
 from agents.budget_agent import calculate_budget
+from agents.itinerary_agent import generate_itinerary
+from agents.weather_agent import get_weather
 
 def run_coordinator(trip_request):
     agent_responses = {}
@@ -10,6 +12,19 @@ def run_coordinator(trip_request):
         destination_tier=trip_request.get("destination_tier", "mid")
     )
     agent_responses["budget"] = budget_result
+
+    itinerary_result = generate_itinerary(
+        destination=trip_request["destination"],
+        num_days=trip_request["num_days"],
+        interests=trip_request.get("interests", [])
+    )
+    agent_responses["itinerary"] = itinerary_result
+
+    weather_result = get_weather(
+        destination=trip_request["destination"],
+        num_days=trip_request["num_days"]
+    )
+    agent_responses["weather"] = weather_result
 
     return {
         "trip_request": trip_request,
