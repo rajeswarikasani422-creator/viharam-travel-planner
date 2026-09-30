@@ -18,7 +18,8 @@ def run_coordinator(trip_request):
     itinerary_result = generate_itinerary(
         destination=trip_request["destination"],
         num_days=trip_request["num_days"],
-        interests=trip_request.get("interests", [])
+        interests=trip_request.get("interests", []),
+        destination_tier=trip_request.get("destination_tier", "mid")
     )
     agent_responses["itinerary"] = itinerary_result
 

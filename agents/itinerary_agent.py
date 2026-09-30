@@ -1,17 +1,13 @@
-import os
-import google.generativeai as genai
-from dotenv import load_dotenv
-from agents.utils import parse_llm_json
-
-load_dotenv()
-genai.configure(api_key=os.getenv("GEMINI_API_KEY"))
-
-def generate_itinerary(destination, num_days, interests):
+def generate_itinerary(destination, num_days, interests, destination_tier="mid"):
     model = genai.GenerativeModel("gemini-2.5-flash")
 
     prompt = f"""
     Create a {num_days}-day travel itinerary for {destination}.
+    Budget tier: {destination_tier}.
     Traveler interests: {', '.join(interests)}.
+
+    Suggest activities and experiences that fit a {destination_tier}-tier budget —
+    avoid luxury-only suggestions for a budget/mid tier, and don't undersell a luxury tier.
 
     Return ONLY valid JSON in this exact format, no extra text:
     {{
